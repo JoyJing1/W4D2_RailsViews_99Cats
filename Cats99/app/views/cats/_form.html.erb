@@ -1,0 +1,60 @@
+<% if cat.persisted? %>
+    <% url, request, button_text = cat_url(cat), "PATCH", "Update Cat" %>
+  <% else %>
+    <% url, request, button_text = cats_url, "POST", "Creat New Cat" %>
+  <% end %>
+
+ <form action="<%= url %>" method="post">
+  <input type="hidden" name="_method" value="<%= request %>">
+  <label for="cat_name">Name: </label>
+  <input type="text"
+          name="cat[name]"
+          id="cat_name"
+          value="<%= @cat.name %>">
+  <br><br>
+
+  <p>Sex: </p>
+  <input type="radio"
+          name="cat[sex]"
+          value="M" id="cat_sex_m"
+          <%= @cat.sex == "M" ? "checked" : "" %> >
+          <label for="cat_sex_m">M</label>
+  <input type="radio"
+          name="cat[sex]"
+          value="F" id="cat_sex_f"
+          <%= @cat.sex == "F" ? "checked" : "" %> >
+          <label for="cat_sex_f">F</label>
+  <br><br>
+
+  <label for="cat_color">Color: </label>
+  <select name="cat[color]" id="cat_color">
+    <option value="none" disabled
+            <%= Cat::COLORS.include?(@cat.color) ? "" : "selected" %>
+            >--Select a Color--</option>
+    <option value="orange"
+            <%= @cat.color == "orange" ? "selected" : "" %>
+            >Orange</option>
+    <option value="black"
+            <%= @cat.color == "black" ? "selected" : "" %>
+            >Black</option>
+    <option value="white"
+            <%= @cat.color == "white" ? "selected" : "" %>
+            >White</option>
+  </select>
+  <br><br>
+
+  <label for="cat_birth_date">DOB: </label>
+  <input type="date"
+          name="cat[birth_date]"
+          id="cat_birth_date"
+          value="<%= @cat.birth_date %>">
+  <br><br>
+
+  <label for="cat_description">Description: </label> <br>
+  <textarea name="cat[description]"
+            rows="8" cols="40"
+            id="cat_description"><%= @cat.description %></textarea>
+
+  <br><br>
+  <input type="submit" value="<%= button_text %>">
+</form>

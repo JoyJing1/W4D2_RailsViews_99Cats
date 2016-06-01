@@ -1,0 +1,14 @@
+
+<form action="/cat_rental_requests" method="post">
+  <select class="crr_cat_id" name="crr[cat_id]">
+    <% cats.each do |cat| %>
+      <option value=<%= cat.id %>><%= cat.name %></option>
+    <% end %>
+  </select>
+  <br><br>
+
+  Start Date: <input type="date" name="crr[start_date]" value=""><br><br>
+  End Date: <input type="date" name="crr[end_date]" value=""><br><br>
+
+  <input type="submit" value="Create a new request">
+</form>
